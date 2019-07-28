@@ -4,4 +4,4 @@
     android:id="@+id/cat_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.catgallery.MainActivity"/>
+    tools:context="com.example.activity_3_bjm31.MainActivity"/>

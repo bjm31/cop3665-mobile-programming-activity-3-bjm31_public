@@ -1,14 +1,11 @@
 package com.example.activity_3_bjm31;
 
+import com.example.activity_3_bjm31.models.GalleryItem;
 import android.net.Uri;
 import android.util.Log;
-
-import com.example.activity_3_bjm31.models.GalleryItem;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +64,8 @@ public class CatFetcher {
             String url = Uri.parse("https://api.thecatapi.com/v1/images/search")
                     .buildUpon()
                     .appendQueryParameter("size", "thumb")
-                    .appendQueryParameter("limit", "100")
+                    .appendQueryParameter("limit", "15") //changed from 100 to 15
+                    //.appendQueryParameter("page", )
                     .build().toString();
             String jsonString = getUrlString(url);
             Log.i(TAG, "Received JSON: " + jsonString);

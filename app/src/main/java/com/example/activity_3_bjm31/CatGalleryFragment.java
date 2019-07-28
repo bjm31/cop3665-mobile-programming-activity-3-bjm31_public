@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -124,11 +125,20 @@ public class CatGalleryFragment extends Fragment {
         mThumbnailDownloader.getLooper();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cat_gallery, container, false);
         mCatRecyclerView = (RecyclerView) v.findViewById(R.id.cat_recycler_view);
         mCatRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+
+        //insert scroll listener
+        mCatRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
         setupAdapter();
         return v;
@@ -147,11 +157,12 @@ public class CatGalleryFragment extends Fragment {
         mThumbnailDownloader.clearQueue();
     }
 
+
+
     private void setupAdapter() {
         if(isAdded())
         {
             mCatRecyclerView.setAdapter(new CatAdapter(mItems));
         }
-
     }
 }
