@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,15 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.activity_3_bjm31.models.GalleryItem;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CatGalleryFragment extends Fragment {
 
     private static final String TAG = "CatGalleryFragment";
+
 
     private class FetchItemsTask extends AsyncTask<Void, Void, List<GalleryItem>>
     {
@@ -96,7 +93,6 @@ public class CatGalleryFragment extends Fragment {
     }
 
     private RecyclerView mCatRecyclerView;
-
     private List<GalleryItem> mItems = new ArrayList<>();
     private ThumbnailDownloader<CatHolder> mThumbnailDownloader;
 
@@ -141,6 +137,7 @@ public class CatGalleryFragment extends Fragment {
         });
 
         setupAdapter();
+
         return v;
     }
 
@@ -158,11 +155,23 @@ public class CatGalleryFragment extends Fragment {
     }
 
 
-
     private void setupAdapter() {
-        if(isAdded())
-        {
+        if(isAdded()) {
             mCatRecyclerView.setAdapter(new CatAdapter(mItems));
         }
+    }
+
+    private boolean isLastDisplayItem(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() != 0) {
+            int lastDisplayItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager())
+                    .findLastCompletelyVisibleItemPosition();
+            boolean isLastItem = (lastDisplayItemPosition != RecyclerView.NO_POSITION);
+            boolean isNextPage = (lastDisplayItemPosition == recyclerView.getAdapter().getItemCount() - 1);
+
+            if (isLastItem && isNextPage) {
+                return true;
+            }
+        }
+        return false;
     }
 }
