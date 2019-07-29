@@ -64,7 +64,7 @@ public class CatFetcher {
             String url = Uri.parse("https://api.thecatapi.com/v1/images/search")
                     .buildUpon()
                     .appendQueryParameter("size", "thumb")
-                    .appendQueryParameter("limit", "20")
+                    .appendQueryParameter("limit", "100")
                     .build().toString();
             String jsonString = getUrlString(url);
             Log.i(TAG, "Received JSON: " + jsonString);

@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,6 +94,7 @@ public class CatGalleryFragment extends Fragment {
     private RecyclerView mCatRecyclerView;
     private List<GalleryItem> mItems = new ArrayList<>();
     private ThumbnailDownloader<CatHolder> mThumbnailDownloader;
+    private boolean isLoading = false;
 
     public static CatGalleryFragment newInstance() {
         return new CatGalleryFragment();
@@ -133,6 +133,12 @@ public class CatGalleryFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                if (isLastDisplayItem(recyclerView)) {
+                    if (!isLoading) {
+                        isLoading = true;
+                        new FetchItemsTask().execute();
+                    }
+                }
             }
         });
 
